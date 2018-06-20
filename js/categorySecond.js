@@ -51,4 +51,79 @@ $(function () {
 			}
 		})
 	}
+
+
+	$.ajax({
+		type: 'get',
+		url: `${APP.baseUrl}/category/queryTopCategoryPaging`,
+		data: {
+			page: 1,
+			pageSize: 100000
+		},
+		success: function (response) {
+			if (response.error) {
+				location.href = 'login.html';
+			} else {
+				var html = template('categoryFirstTemps', response);
+				$('#categoryFirstBoxs').html(html);
+			}
+		}
+	})
+
+	var brandLogo = '';
+
+	// 文件上传第三步 插件调用
+	$('#fileUpload').fileupload({
+	    dataType: 'json',
+	    done: function (e, data) {
+	    	console.log(data);
+	    	// 存储图片地址
+	    	brandLogo = data._response.result.picAddr;
+	    	// 拼接图片url
+	    	var imgUrl= APP.baseUrl + data._response.result.picAddr;
+	    	// 将图片渲染到页面中
+	     	$("#showBrand").attr("src",imgUrl);
+	    }
+	});
+
+	var hot = 1;
+
+	$('#addSecondBtn').on('click', function () {
+		var result = $('#categorySecondForm').serializeToJson();
+		var categoryId = result.categoryId;
+		var brandName = result.brandName;
+
+		$.ajax({
+			type: 'post',
+			url: `${APP.baseUrl}/category/addSecondCategory`,
+			data: {
+				brandName,
+				categoryId,
+				brandLogo,
+				hot
+			},
+			success: function (response) {
+				if (response.success) {
+					location.reload();
+				} else {
+					alert(response.message);
+				}
+			}
+		})
+		// $.ajax({
+		// 	type: 'post',
+		// 	url: `${APP.baseUrl}/category/addTopCategory`,
+		// 	data: {
+		// 		categoryName
+		// 	},
+		// 	success: function (response) {
+		// 		if (response.error) {
+		// 			alert(response.error);
+		// 		} else {
+		// 			location.reload();
+		// 		}
+
+		// 	}
+		// })
+	})
 })
