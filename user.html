@@ -91,13 +91,13 @@
 	</div>
 
 	<script type="text/html" id="userTemp">
-		<% for (var i = 0; i < response.rows.length; i++) { %>
+		<% for (var i = 0; i < rows.length; i++) { %>
 			<tr>
-				<td>18500000000</td>
-				<td>18500000000</td>
-				<td>已启用</td>
+				<td><%=rows[i].username%></td>
+				<td><%=rows[i].mobile%></td>
+				<td><%=rows[i].isDelete == 1 ? '已启用': '已禁用'%></td>
 				<td>
-					<button type="button" class="btn btn-danger">禁用</button>
+					<button type="button" class="changeStatus <%=rows[i].isDelete == 1 ? 'btn-danger' : 'btn-success'%> btn" date-user-id="<%=rows[i].id%>" data-user-isdelete="<%=rows[i].isDelete%>"><%=rows[i].isDelete == 1 ? '禁用' : '启用'%></button>
 				</td>
 			</tr>
 		<% } %>
