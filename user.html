@@ -97,7 +97,7 @@
 				<td><%=rows[i].mobile%></td>
 				<td><%=rows[i].isDelete == 1 ? '已启用': '已禁用'%></td>
 				<td>
-					<button type="button" class="changeStatus <%=rows[i].isDelete == 1 ? 'btn-danger' : 'btn-success'%> btn" date-user-id="<%=rows[i].id%>" data-user-isdelete="<%=rows[i].isDelete%>"><%=rows[i].isDelete == 1 ? '禁用' : '启用'%></button>
+					<button type="button" class="changeStatus <%=rows[i].isDelete == 1 ? 'btn-danger' : 'btn-success'%> btn" data-user-id="<%=rows[i].id%>" data-user-isdelete="<%=rows[i].isDelete%>"><%=rows[i].isDelete == 1 ? '禁用' : '启用'%></button>
 				</td>
 			</tr>
 		<% } %>

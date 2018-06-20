@@ -20,29 +20,29 @@ $(function () {
 			pageSize: 100
 		},
 		success: function (response) {
-			console.log(response);
 			var html = template('userTemp', response);
-			$('#userBox').html(html);
+			$('#userBox').append(html);
 		}
 	})
 
 	$('#userBox').on('click', '.changeStatus', function () {
 		
-		var id = $(this).attr('data-user-id');
+		var id = $(this).data('user-id');
 
-		var isdelete = $(this).attr('data-user-isdelete');
+		// 获取用户当前状态
+		var isDelete = $(this).data('user-isdelete');
 
 		$.ajax({
 			type: 'post',
 			url: `${APP.baseUrl}/user/updateUser`,
 			data: {
 				id: id,
-				isdelete: isdelete == 1 ? 0 : 1
+				isDelete: isDelete == 1 ? 0 : 1
 			},
 			success: function (response) {
 				if (response.success) {
 					location.reload();
-				} else {
+				}else {
 					alert(response.message);
 				}
 			}
